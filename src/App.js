@@ -1,14 +1,20 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
 function App() {
   /* [variável, função que atualiza] */
   const [tech, setTech] = useState([]);
   const [newTech, setNewTech] = useState('');
 
-  function handleAdd() {
+  /* Esta função é montada toda vez que um dos valores é alterado. */
+  // function handleAdd() {
+  //   setTech([...tech, newTech]);
+  //   setNewTech('');
+  // }
+
+  const handleAdd = useCallback(() => {
     setTech([...tech, newTech]);
     setNewTech('');
-  }
+  }, [newTech, tech]);
 
   /* Passando Array vazio no segundo parâmetro essa função só será executada uma vez. */
   useEffect(() => {
